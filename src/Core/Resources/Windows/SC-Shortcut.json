@@ -1,0 +1,12 @@
+﻿[
+  {
+    "PathPattern": "*.sln",
+    "ChildPathPatterns": []
+  },
+  {
+    "PathPattern": "*",
+    "ChildPathPatterns": [
+      "*metadata.rb"
+    ]
+  }
+]

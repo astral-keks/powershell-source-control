@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <AssemblyName>AstralKeks.SourceControl.Command</AssemblyName>
+    <RootNamespace>AstralKeks.SourceControl.Command</RootNamespace>
+    <OutDir>bin\$(Configuration)\AstralKeks.SourceControl\0.0.1</OutDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\SourceControl.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AstralKeks.Workbench.PowerShell">
+      <HintPath>..\..\package\AstralKeks.Workbench.PowerShell\0.0.0\lib\net462\AstralKeks.Workbench.PowerShell.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ContentWithTargetPath Include="Manifest.psd1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>AstralKeks.SourceControl.psd1</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Management.Automation.dll" Version="10.0.10586" />
+  </ItemGroup>
+
+</Project>

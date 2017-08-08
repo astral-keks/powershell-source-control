@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <AssemblyName>AstralKeks.SourceControl.Core</AssemblyName>
+    <RootNamespace>AstralKeks.SourceControl.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Windows\SC-Repository.json" />
+    <EmbeddedResource Include="Resources\Windows\SC-Shortcut.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="System.ValueTuple" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AstralKeks.Workbench.Common">
+      <HintPath>..\..\package\AstralKeks.Workbench.Common\0.0.0\lib\net462\AstralKeks.Workbench.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,83 @@
+﻿using AstralKeks.SourceControl.Core.Data;
+using Microsoft.VisualBasic;
+using Microsoft.VisualBasic.CompilerServices;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace AstralKeks.SourceControl.Core.Management
+{
+    public class WorkingPathBinding
+    {
+        private delegate void Binder();
+        private delegate void Unbinder();
+        private readonly List<WorkingCopy> _workingCopies;
+
+        public WorkingPathBinding(IEnumerable<WorkingCopy> workingCopies)
+        {
+            if (workingCopies == null)
+                throw new ArgumentNullException(nameof(workingCopies));
+
+            _workingCopies = workingCopies.ToList();
+        }
+
+        public IEnumerable<WorkingPath> Bind(WorkingPath path)
+        {
+            path = NormalizePath(path);
+
+            foreach (var workingCopy in GetWorkingCopies(path))
+            {
+                var pathBuilder = new WorkingPathBuilder(path);
+                pathBuilder.FullPath = pathBuilder.FullPath.Replace(workingCopy.OriginPath, workingCopy.RootPath);
+                pathBuilder.RootPath = workingCopy.RootPath;
+                yield return pathBuilder.WorkingPath;
+            }
+        }
+
+        public IEnumerable<WorkingPath> Unbind(WorkingPath path)
+        {
+            path = NormalizePath(path);
+
+            foreach (var workingCopy in GetWorkingCopies(path))
+            {
+                var pathBuilder = new WorkingPathBuilder(path);
+                pathBuilder.FullPath = pathBuilder.FullPath.Replace(workingCopy.RootPath, workingCopy.OriginPath);
+                yield return pathBuilder.WorkingPath;
+            }
+        }
+
+        private IEnumerable<WorkingCopy> GetWorkingCopies(WorkingPath path)
+        {
+            var success = false;
+            foreach (var workingCopy in _workingCopies)
+            {
+                if (path.ToString().StartsWith(workingCopy.OriginPath, StringComparison.OrdinalIgnoreCase))
+                {
+                    success = true;
+                    yield return workingCopy;
+                }
+                else if (Operators.LikeString(workingCopy.RootPath, path.RootPath, CompareMethod.Text))
+                {
+                    success = true;
+                    yield return workingCopy;
+                }
+            }
+
+            if (!success)
+                throw new DirectoryNotFoundException($"Working copy was not found for {path}");
+        }
+        
+        private WorkingPath NormalizePath(WorkingPath path)
+        {
+            var pathBuilder = new WorkingPathBuilder(path);
+
+            if (string.IsNullOrWhiteSpace(pathBuilder.RootPath))
+                pathBuilder.RootPath = WorkingPath.WildcardBasePath;
+            if (pathBuilder.RootPath == WorkingPath.CurrentBasePath)
+                pathBuilder.FullPath = Path.GetFullPath(pathBuilder.FullPath);
+
+            return pathBuilder.WorkingPath;
+        }
+    }
+}

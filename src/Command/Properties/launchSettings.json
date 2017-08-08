@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "SourceControl.Command": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "workingDirectory": "d:\\Workplace\\Workbench"
+    }
+  }
+}
