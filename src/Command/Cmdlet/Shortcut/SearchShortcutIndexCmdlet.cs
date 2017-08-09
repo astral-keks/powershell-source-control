@@ -14,12 +14,12 @@ namespace AstralKeks.SourceControl.Command
 
         protected override void ProcessRecord()
         {
-            WriteObject(Env.ShortcutManager.Search(ShortcutName).Select(p => p.TargetPath), true);
+            WriteObject(Env.ShortcutIndex.Search(ShortcutName).Select(p => p.TargetPath), true);
         }
 
         public string[] GetParameterValues()
         {
-            return Env.ShortcutManager.Search().Select(r => r.Name).ToArray();
+            return Env.ShortcutIndex.Search().Select(r => r.Name).ToArray();
         }
     }
 }

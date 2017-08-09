@@ -14,7 +14,7 @@ namespace AstralKeks.SourceControl.Command
         protected override void ProcessRecord()
         {
             var workingCopy = Env.WorkingCopyManager.GetWorkingCopy(WorkingCopyName);
-            Env.ShortcutManager.Sync(workingCopy);
+            Env.ShortcutIndex.Sync(workingCopy);
         }
 
         public string[] GetParameterValues()

@@ -18,7 +18,7 @@ namespace AstralKeks.SourceControl.Core.Management
             _repositoryManager = repositoryManager ?? throw new ArgumentNullException(nameof(repositoryManager));
         }
 
-        public void CreateWorkingCopy(string workingCopyName, string repositoryName)
+        public WorkingCopy CreateWorkingCopy(string workingCopyName, string repositoryName)
         {
             if (string.IsNullOrWhiteSpace(workingCopyName))
                 throw new ArgumentNullException(nameof(workingCopyName));
@@ -30,6 +30,7 @@ namespace AstralKeks.SourceControl.Core.Management
             var workingCopy = GetWorkingCopy(workingCopyName, null);
             var client = _repositoryManager.GetRepositoryClient(repository.Vcs);
             client.CreateWorkingCopy(workingCopy.OriginPath, repository.Uri);
+            return workingCopy;
         }
 
         public List<WorkingCopy> GetWorkingCopies(Func<WorkingCopy, bool> predicate = null)
@@ -107,6 +108,8 @@ namespace AstralKeks.SourceControl.Core.Management
             {
                 var workingCopy = GetWorkingCopy(boundPath.Root);
                 var client = _repositoryManager.GetRepositoryClient(workingCopy.OriginPath);
+                if (client == null)
+                    throw new ArgumentException($"Repository client was not found for query '{query}'");
 
                 foreach (var unboundPath in binding.Unbind(boundPath))
                     action(client, unboundPath);
@@ -122,6 +125,8 @@ namespace AstralKeks.SourceControl.Core.Management
             {
                 var workingCopy = GetWorkingCopy(boundPath.Root);
                 var client = _repositoryManager.GetRepositoryClient(workingCopy.OriginPath);
+                if (client == null)
+                    throw new ArgumentException($"Repository client was not found for query '{query}'");
 
                 foreach (var unboundPath in binding.Unbind(boundPath))
                     yield return func(client, unboundPath);
@@ -155,7 +160,7 @@ namespace AstralKeks.SourceControl.Core.Management
         private WorkingCopy GetWorkingCopy(string workingCopyName, string workingCopyPath = null)
         {
             if (string.IsNullOrWhiteSpace(workingCopyName))
-                workingCopyName = Path.GetFileNameWithoutExtension(workingCopyPath);
+                workingCopyName = Path.GetFileName(workingCopyPath);
             if (string.IsNullOrWhiteSpace(workingCopyPath))
                 workingCopyPath = _fileSystemManager.WorkingCopyPath(workingCopyName);
 

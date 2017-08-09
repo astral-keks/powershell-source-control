@@ -1,5 +1,5 @@
 $src = "$PSScriptRoot\src"
-$artifact = "$PSScriptRoot\artifact"
+$artifact = "$PSScriptRoot\artifact\AstralKeks.SourceControl"
 
 # Build binaries
 if (Test-Path $artifact) { Remove-Item $artifact -Recurse }

@@ -7,7 +7,7 @@ namespace AstralKeks.SourceControl.Core
     {
         private readonly RepositoryManager _repositoryManager;
         private readonly WorkingCopyManager _workingCopyManager;
-        private readonly ShortcutIndex _shortcutManager;
+        private readonly ShortcutIndex _shortcutIndex;
         private readonly QueryManager _queryManager;
 
         public SourceControlEnvironment()
@@ -19,12 +19,12 @@ namespace AstralKeks.SourceControl.Core
             _repositoryManager = new RepositoryManager(configurationManager);
             _workingCopyManager = new WorkingCopyManager(fileSystemManager, _repositoryManager);
             _queryManager = new QueryManager(_workingCopyManager);
-            _shortcutManager = new ShortcutIndex(fileSystemManager, configurationManager);
+            _shortcutIndex = new ShortcutIndex(fileSystemManager, configurationManager);
         }
 
         public RepositoryManager RepositoryManager => _repositoryManager;
         public WorkingCopyManager WorkingCopyManager => _workingCopyManager;
         public QueryManager QueryManager => _queryManager;
-        public ShortcutIndex ShortcutManager => _shortcutManager;
+        public ShortcutIndex ShortcutIndex => _shortcutIndex;
     }
 }
