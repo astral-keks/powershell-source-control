@@ -4,7 +4,7 @@ using System.Management.Automation;
 
 namespace AstralKeks.SourceControl.Command
 {
-    [Cmdlet(VerbsCommon.Search, Noun.ShortcutIndex)]
+    [Cmdlet(VerbsCommon.Search, Noun.SCShortcutIndex)]
     [OutputType(typeof(string))]
     public class SearchShortcutIndexCmdlet : SourceControlDynamicCmdlet
     {

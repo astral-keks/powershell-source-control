@@ -76,21 +76,22 @@ namespace AstralKeks.SourceControl.Core.Client
 
         public override void ExportWorkingCopyDiff(string path, string diffPath)
         {
-            //TortoiseGitProc("diff", new Dictionary<string, string>
-            //{
-            //    { "path", path }
-            //},
-            //true);
+            TortoiseGitProc("diff", new Dictionary<string, string>
+            {
+                { "path", path },
+                { "unified", null }
+            },
+            true);
         }
 
         public override void ImportWorkingCopyDiff(string path, string diffPath)
         {
-            //TortoiseGitMerge(new Dictionary<string, string>
-            //{
-            //    { "patchpath", path },
-            //    { "diff", diffPath },
-            //},
-            //true);
+            TortoiseGitMerge(new Dictionary<string, string>
+            {
+                { "patchpath", path },
+                { "diff", diffPath },
+            },
+            true);
         }
 
         private void TortoiseGitProc(string command, Dictionary<string, string> arguments = null, bool waitForExit = false)

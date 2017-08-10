@@ -2,7 +2,7 @@
 
 namespace AstralKeks.SourceControl.Command
 {
-    [Cmdlet(VerbsData.Export, Noun.WorkingCopyDiff)]
+    [Cmdlet(VerbsData.Export, Noun.SCWorkingCopyDiff)]
     [OutputType(typeof(string))]
     public class ExportWorkingCopyDiffCmdlet : WorkingCopyCmdlet
     {

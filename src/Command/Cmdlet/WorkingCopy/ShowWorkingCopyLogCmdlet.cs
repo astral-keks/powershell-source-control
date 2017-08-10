@@ -2,7 +2,7 @@
 
 namespace AstralKeks.SourceControl.Command
 {
-    [Cmdlet(VerbsCommon.Show, Noun.WorkingCopyLog)]
+    [Cmdlet(VerbsCommon.Show, Noun.SCWorkingCopyLog)]
     public class ShowWorkingCopyLogCmdlet : WorkingCopyCmdlet
     {
         protected override void ProcessRecord()

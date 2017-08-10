@@ -4,7 +4,7 @@ using AstralKeks.Workbench.PowerShell.Attributes;
 
 namespace AstralKeks.SourceControl.Command
 {
-    [Cmdlet(VerbsData.Sync, Noun.ShortcutIndex)]
+    [Cmdlet(VerbsData.Sync, Noun.SCShortcutIndex)]
     public class SyncShortcutIndexCmdlet : SourceControlDynamicCmdlet
     {
         [DynamicParameter(Mandatory = true, Position = 0)]

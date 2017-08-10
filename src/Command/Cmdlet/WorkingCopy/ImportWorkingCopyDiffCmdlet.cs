@@ -3,7 +3,7 @@ using System.Management.Automation;
 
 namespace AstralKeks.SourceControl.Command
 {
-    [Cmdlet(VerbsData.Import, Noun.WorkingCopyDiff)]
+    [Cmdlet(VerbsData.Import, Noun.SCWorkingCopyDiff)]
     public class ImportWorkingCopyDiffCmdlet : WorkingCopyCmdlet
     {
         [DynamicParameter(Position = 1, ValueFromPipeline = true)]

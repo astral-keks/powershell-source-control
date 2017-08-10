@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace AstralKeks.SourceControl.Command
 {
-    [Cmdlet(VerbsCommon.Add, Noun.Repository)]
+    [Cmdlet(VerbsCommon.Add, Noun.SCRepository)]
     public class AddRepositoryCmdlet : SourceControlDynamicCmdlet
     {
         [DynamicParameter(Position = 0, Mandatory = true)]

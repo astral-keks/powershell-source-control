@@ -5,7 +5,7 @@ using AstralKeks.Workbench.PowerShell.Attributes;
 
 namespace AstralKeks.SourceControl.Command
 {
-    [Cmdlet(VerbsCommon.Get, Noun.Repository)]
+    [Cmdlet(VerbsCommon.Get, Noun.SCRepository)]
     [OutputType(typeof(Repository))]
     public class GetRepositoryCmdlet : SourceControlDynamicCmdlet
     {

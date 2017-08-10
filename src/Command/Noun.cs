@@ -3,14 +3,16 @@ namespace AstralKeks.SourceControl.Command
 {
     internal static class Noun
     {
-        public const string Repository = "Repository";
+        public const string SC = "SC";
 
-        public const string WorkingCopy = "WorkingCopy";
-        public const string WorkingCopyLog = WorkingCopy + "Log";
-        public const string WorkingCopyDiff = WorkingCopy + "Diff";
-        public const string WorkingItem = "WorkingItem";
+        public const string SCRepository = SC + "Repository";
 
-        public const string Shortcut = "Shortcut";
-        public const string ShortcutIndex = Shortcut + "Index";
+        public const string SCWorkingCopy = SC + "WorkingCopy";
+        public const string SCWorkingCopyLog = SCWorkingCopy + "Log";
+        public const string SCWorkingCopyDiff = SCWorkingCopy + "Diff";
+        public const string SCWorkingItem = SC + "WorkingItem";
+
+        public const string SCShortcut = SC + "Shortcut";
+        public const string SCShortcutIndex = SCShortcut + "Index";
     }
 }

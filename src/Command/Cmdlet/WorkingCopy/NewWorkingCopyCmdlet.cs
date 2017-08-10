@@ -4,7 +4,7 @@ using AstralKeks.Workbench.PowerShell.Attributes;
 
 namespace AstralKeks.SourceControl.Command
 {
-    [Cmdlet(VerbsCommon.New, Noun.WorkingCopy)]
+    [Cmdlet(VerbsCommon.New, Noun.SCWorkingCopy)]
     public class NewWorkingCopyCmdlet : SourceControlDynamicCmdlet
     {
         [DynamicParameter(Mandatory = true, Position = 0)]
