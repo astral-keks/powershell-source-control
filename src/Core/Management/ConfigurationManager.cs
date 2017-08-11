@@ -1,5 +1,6 @@
 ﻿using AstralKeks.SourceControl.Core.Data;
 using AstralKeks.SourceControl.Core.Resources;
+using AstralKeks.Workbench.Common.Context;
 using AstralKeks.Workbench.Common.Resources;
 using System;
 using System.Collections.Generic;
@@ -50,8 +51,8 @@ namespace AstralKeks.SourceControl.Core.Management
         
         private Resource GetConfigResource(string fileName)
         {
-            return _resourceManager.ObtainResource(_fileSystemManager.WorkspaceDirectory, _fileSystemManager.UserspaceDirectory,
-                Directories.Config, fileName);
+            var locations = new[] { Location.Workspace(), Location.Userspace() };
+            return _resourceManager.CreateResource(locations, Directories.Config, fileName);
         }
 
     }

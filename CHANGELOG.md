@@ -1,3 +1,7 @@
+## 0.0.4
+### Changed
+- Migration to the latest AstralKeks.Workbench.Common
+
 ## 0.0.3
 ### Fixed
 - Export-SCWorkingCopyDiff
