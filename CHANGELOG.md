@@ -1,3 +1,9 @@
+## 0.1.0
+### Fixed
+- Incorrect lowercase path resolution
+### Added
+- Support searching shortcuts by substring
+
 ## 0.0.4
 ### Changed
 - Migration to the latest AstralKeks.Workbench.Common

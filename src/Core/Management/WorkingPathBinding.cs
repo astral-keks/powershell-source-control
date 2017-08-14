@@ -29,7 +29,7 @@ namespace AstralKeks.SourceControl.Core.Management
             foreach (var workingCopy in GetWorkingCopies(path))
             {
                 var pathBuilder = new WorkingPathBuilder(path);
-                pathBuilder.FullPath = pathBuilder.FullPath.Replace(workingCopy.OriginPath, workingCopy.RootPath);
+                pathBuilder.FullPath = ReplacePath(pathBuilder.FullPath, workingCopy.OriginPath, workingCopy.RootPath);
                 pathBuilder.RootPath = workingCopy.RootPath;
                 yield return pathBuilder.WorkingPath;
             }
@@ -42,7 +42,7 @@ namespace AstralKeks.SourceControl.Core.Management
             foreach (var workingCopy in GetWorkingCopies(path))
             {
                 var pathBuilder = new WorkingPathBuilder(path);
-                pathBuilder.FullPath = pathBuilder.FullPath.Replace(workingCopy.RootPath, workingCopy.OriginPath);
+                pathBuilder.FullPath = ReplacePath(pathBuilder.FullPath, workingCopy.RootPath, workingCopy.OriginPath);
                 yield return pathBuilder.WorkingPath;
             }
         }
@@ -78,6 +78,16 @@ namespace AstralKeks.SourceControl.Core.Management
                 pathBuilder.FullPath = Path.GetFullPath(pathBuilder.FullPath);
 
             return pathBuilder.WorkingPath;
+        }
+
+        private string ReplacePath(string path, string oldPart, string newPart)
+        {
+            var index = -1;
+            if (!string.IsNullOrEmpty(oldPart))
+                index = path.IndexOf(oldPart, StringComparison.OrdinalIgnoreCase);
+            if (index >= 0)
+                path = $"{path.Substring(0, index)}{newPart}{path.Substring(index + oldPart.Length)}";
+            return path;
         }
     }
 }
