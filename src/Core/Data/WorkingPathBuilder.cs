@@ -1,6 +1,7 @@
 ﻿using AstralKeks.SourceControl.Core.Resources;
 using System;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace AstralKeks.SourceControl.Core.Data
@@ -82,6 +83,37 @@ namespace AstralKeks.SourceControl.Core.Data
                 ? $"{firstPath}{Path.DirectorySeparatorChar}" 
                 : firstPath;
             return Path.Combine(firstPath, secondPath);
+        }
+
+        public static string Validate(string path)
+        {
+            if (File.Exists(path))
+            {
+                var pathParts = path.Split(Path.DirectorySeparatorChar);
+                if (pathParts.Any())
+                {
+                    var validPath = pathParts.First();
+                    for (int i = 1; i < pathParts.Length; i++)
+                    {
+                        if (!validPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+                            validPath += Path.DirectorySeparatorChar;
+
+                        var entries = Directory.GetFileSystemEntries(validPath, pathParts[i]);
+                        if (entries.Length == 1)
+                        {
+                            var validPathPart = entries.Single().Replace(validPath, string.Empty);
+                            validPath = Combine(validPath, validPathPart);
+                        }
+                        else
+                            break;
+                    }
+
+                    if (validPath.Length == path.Length)
+                        path = validPath;
+                }
+            }
+
+            return path;
         }
     }
 }

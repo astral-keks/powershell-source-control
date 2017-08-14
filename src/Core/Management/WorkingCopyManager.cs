@@ -55,27 +55,27 @@ namespace AstralKeks.SourceControl.Core.Management
 
         public void PopWorkingCopy(string query)
         {
-            InvokeClient(query, (client, path) => client.PopWorkingCopy(path.ToString()));
+            InvokeClient(query, (client, path) => client.PopWorkingCopy(path));
         }
 
         public void PushWorkingCopy(string query)
         {
-            InvokeClient(query, (client, path) => client.PushWorkingCopy(path.ToString()));
+            InvokeClient(query, (client, path) => client.PushWorkingCopy(path));
         }
 
         public void ResetWorkingCopy(string query)
         {
-            InvokeClient(query, (client, path) => client.ResetWorkingCopy(path.ToString()));
+            InvokeClient(query, (client, path) => client.ResetWorkingCopy(path));
         }
 
         public void ShowWorkingCopyLog(string query)
         {
-            InvokeClient(query, (client, path) => client.ShowWorkingCopyLog(path.ToString()));
+            InvokeClient(query, (client, path) => client.ShowWorkingCopyLog(path));
         }
 
         public void ShowWorkingCopyDiff(string query)
         {
-            InvokeClient(query, (client, path) => client.ShowWorkingCopyDiff(path.ToString()));
+            InvokeClient(query, (client, path) => client.ShowWorkingCopyDiff(path));
         }
 
         public IEnumerable<string> ExportWorkingCopyDiff(string query)
@@ -83,24 +83,25 @@ namespace AstralKeks.SourceControl.Core.Management
             return InvokeClient(query, (client, path) =>
             {
                 var workingCopyDiffPath = _fileSystemManager.WorkingCopyDiffPath();
-                client.ExportWorkingCopyDiff(path.ToString(), workingCopyDiffPath);
+                client.ExportWorkingCopyDiff(path, workingCopyDiffPath);
                 return workingCopyDiffPath;
             });
         }
 
         public void ImportWorkingCopyDiff(string query, string workingCopyDiffPath)
         {
-            InvokeClient(query, (client, path) => client.ImportWorkingCopyDiff(path.ToString(), workingCopyDiffPath));
+            InvokeClient(query, (client, path) => client.ImportWorkingCopyDiff(path, workingCopyDiffPath));
         }
 
         public void AddWorkingCopyEntry(string query)
         {
-            InvokeClient(query, (client, path) => client.AddWorkingCopyItem(path.ToString()));
+            InvokeClient(query, (client, path) => client.AddWorkingCopyItem(path));
         }
         
 
-        private void InvokeClient(string query, Action<RepositoryClient, WorkingPath> action)
+        private void InvokeClient(string query, Action<RepositoryClient, string> action)
         {
+            query = WorkingPathBuilder.Validate(query);
             var binding = new WorkingPathBinding(GetWorkingCopies());
 
             var queryPath = new WorkingPathBuilder(query).WorkingPath;
@@ -112,12 +113,13 @@ namespace AstralKeks.SourceControl.Core.Management
                     throw new ArgumentException($"Repository client was not found for query '{query}'");
 
                 foreach (var unboundPath in binding.Unbind(boundPath))
-                    action(client, unboundPath);
+                    action(client, WorkingPathBuilder.Validate(unboundPath.ToString()));
             }
         }
 
-        private IEnumerable<TResult> InvokeClient<TResult>(string query, Func<RepositoryClient, WorkingPath, TResult> func)
+        private IEnumerable<TResult> InvokeClient<TResult>(string query, Func<RepositoryClient, string, TResult> func)
         {
+            query = WorkingPathBuilder.Validate(query);
             var binding = new WorkingPathBinding(GetWorkingCopies());
 
             var queryPath = new WorkingPathBuilder(query).WorkingPath;
@@ -129,7 +131,7 @@ namespace AstralKeks.SourceControl.Core.Management
                     throw new ArgumentException($"Repository client was not found for query '{query}'");
 
                 foreach (var unboundPath in binding.Unbind(boundPath))
-                    yield return func(client, unboundPath);
+                    yield return func(client, WorkingPathBuilder.Validate(unboundPath.ToString()));
             }
         }
 

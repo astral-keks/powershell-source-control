@@ -47,17 +47,15 @@ namespace AstralKeks.SourceControl.Core.Management
             }
         }
 
-        private IEnumerable<WorkingCopy> GetWorkingCopies(WorkingPath path)
+        private IEnumerable<WorkingCopy> GetWorkingCopies(WorkingPath workingPath)
         {
             var success = false;
+            var path = workingPath.ToString();
             foreach (var workingCopy in _workingCopies)
             {
-                if (path.ToString().StartsWith(workingCopy.OriginPath, StringComparison.OrdinalIgnoreCase))
-                {
-                    success = true;
-                    yield return workingCopy;
-                }
-                else if (Operators.LikeString(workingCopy.RootPath, path.RootPath, CompareMethod.Text))
+                if (path.Equals(workingCopy.OriginPath, StringComparison.OrdinalIgnoreCase)
+                    || path.ToString().StartsWith(workingCopy.OriginPath + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) 
+                    || Operators.LikeString(workingCopy.RootPath, workingPath.RootPath, CompareMethod.Text))
                 {
                     success = true;
                     yield return workingCopy;
@@ -65,7 +63,7 @@ namespace AstralKeks.SourceControl.Core.Management
             }
 
             if (!success)
-                throw new DirectoryNotFoundException($"Working copy was not found for {path}");
+                throw new DirectoryNotFoundException($"Working copy was not found for {workingPath}");
         }
         
         private WorkingPath NormalizePath(WorkingPath path)
