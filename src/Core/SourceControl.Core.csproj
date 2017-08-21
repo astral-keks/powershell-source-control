@@ -4,6 +4,9 @@
     <TargetFramework>net462</TargetFramework>
     <AssemblyName>AstralKeks.SourceControl.Core</AssemblyName>
     <RootNamespace>AstralKeks.SourceControl.Core</RootNamespace>
+    <Version>$(VersionSuffix)</Version>
+    <AssemblyVersion>$(VersionSuffix)</AssemblyVersion>
+    <FileVersion>$(VersionSuffix)</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
