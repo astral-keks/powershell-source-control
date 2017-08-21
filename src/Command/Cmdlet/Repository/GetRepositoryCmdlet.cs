@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Management.Automation;
 using AstralKeks.SourceControl.Core.Data;
-using AstralKeks.Workbench.PowerShell.Attributes;
+using AstralKeks.PowerShell.Common.Attributes;
 
 namespace AstralKeks.SourceControl.Command
 {

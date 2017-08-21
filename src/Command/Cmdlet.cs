@@ -1,5 +1,5 @@
 ﻿using AstralKeks.SourceControl.Core;
-using AstralKeks.Workbench.PowerShell;
+using AstralKeks.PowerShell.Common;
 using System.Management.Automation;
 
 namespace AstralKeks.SourceControl.Command

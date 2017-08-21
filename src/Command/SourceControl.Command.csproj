@@ -12,12 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="AstralKeks.Workbench.PowerShell">
-      <HintPath>..\..\package\AstralKeks.Workbench.PowerShell\0.0.0\lib\net462\AstralKeks.Workbench.PowerShell.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <ContentWithTargetPath Include="Manifest.psd1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <TargetPath>AstralKeks.SourceControl.psd1</TargetPath>
@@ -25,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AstralKeks.PowerShell.Common" Version="0.1.0" />
     <PackageReference Include="System.Management.Automation.dll" Version="10.0.10586" />
   </ItemGroup>
 

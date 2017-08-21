@@ -1,4 +1,4 @@
-﻿using AstralKeks.Workbench.PowerShell.Attributes;
+﻿using AstralKeks.PowerShell.Common.Attributes;
 
 namespace AstralKeks.SourceControl.Command
 {
