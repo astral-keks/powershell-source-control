@@ -1,5 +1,6 @@
 ﻿using AstralKeks.SourceControl.Core.Data;
 using AstralKeks.SourceControl.Core.Resources;
+using AstralKeks.Workbench.Common.FileSystem;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,10 @@ namespace AstralKeks.SourceControl.Core.Management
 {
     public class ShortcutIndex
     {
-        private readonly FileSystemManager _fileSystemManager;
         private readonly ConfigurationManager _confgurationManager;
 
-        public ShortcutIndex(FileSystemManager fileSystemManager, ConfigurationManager confgurationManager)
+        public ShortcutIndex(ConfigurationManager confgurationManager)
         {
-            _fileSystemManager = fileSystemManager ?? throw new ArgumentNullException(nameof(fileSystemManager));
             _confgurationManager = confgurationManager ?? throw new ArgumentNullException(nameof(confgurationManager));
         }
 
@@ -78,7 +77,7 @@ namespace AstralKeks.SourceControl.Core.Management
 
         private IEnumerable<Shortcut> ReadIndex()
         {
-            var indexFiles = Directory.GetFiles(_fileSystemManager.WorkingCopyIndexDirectory)
+            var indexFiles = Directory.GetFiles(Paths.IndexDirectory)
                 .Where(f => f.EndsWith(Files.Index))
                 .ToList();
 
@@ -100,7 +99,8 @@ namespace AstralKeks.SourceControl.Core.Management
 
         private string InitializeIndex(string workingCopyName)
         {
-            var indexPath = _fileSystemManager.WorkingCopyIndexPath(workingCopyName);
+            var fileName = $"{workingCopyName}{Files.Index}";
+            var indexPath = FsPath.Absolute(Paths.IndexDirectory, fileName);
             var indexDirectory = Path.GetDirectoryName(indexPath);
             if (!Directory.Exists(indexDirectory))
                 Directory.CreateDirectory(indexDirectory);

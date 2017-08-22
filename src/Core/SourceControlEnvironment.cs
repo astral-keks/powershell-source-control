@@ -12,14 +12,13 @@ namespace AstralKeks.SourceControl.Core
 
         public SourceControlEnvironment()
         {
-            var fileSystemManager = new FileSystemManager();
             var resourceManager = new ResourceManager(typeof(SourceControlEnvironment));
-            var configurationManager = new ConfigurationManager(fileSystemManager, resourceManager);
+            var configurationManager = new ConfigurationManager(resourceManager);
 
             _repositoryManager = new RepositoryManager(configurationManager);
-            _workingCopyManager = new WorkingCopyManager(fileSystemManager, _repositoryManager);
+            _workingCopyManager = new WorkingCopyManager(_repositoryManager);
             _queryManager = new QueryManager(_workingCopyManager);
-            _shortcutIndex = new ShortcutIndex(fileSystemManager, configurationManager);
+            _shortcutIndex = new ShortcutIndex(configurationManager);
         }
 
         public RepositoryManager RepositoryManager => _repositoryManager;

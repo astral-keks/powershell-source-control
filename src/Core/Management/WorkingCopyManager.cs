@@ -4,17 +4,17 @@ using System.IO;
 using System.Linq;
 using AstralKeks.SourceControl.Core.Data;
 using AstralKeks.SourceControl.Core.Client;
+using AstralKeks.SourceControl.Core.Resources;
+using AstralKeks.Workbench.Common.FileSystem;
 
 namespace AstralKeks.SourceControl.Core.Management
 {
     public class WorkingCopyManager
     {
-        private readonly FileSystemManager _fileSystemManager;
         private readonly RepositoryManager _repositoryManager;
 
-        public WorkingCopyManager(FileSystemManager fileSystemManager, RepositoryManager repositoryManager)
+        public WorkingCopyManager(RepositoryManager repositoryManager)
         {
-            _fileSystemManager = fileSystemManager ?? throw new ArgumentNullException(nameof(fileSystemManager));
             _repositoryManager = repositoryManager ?? throw new ArgumentNullException(nameof(repositoryManager));
         }
 
@@ -82,7 +82,8 @@ namespace AstralKeks.SourceControl.Core.Management
         {
             return InvokeClient(query, (client, path) =>
             {
-                var workingCopyDiffPath = _fileSystemManager.WorkingCopyDiffPath();
+                var fileName = $"{DateTime.UtcNow.ToString("yy-MM-dd-HH-mm-ss-ffff")}.patch";
+                var workingCopyDiffPath = FsPath.Absolute(Paths.DiffDirectory, fileName);
                 client.ExportWorkingCopyDiff(path, workingCopyDiffPath);
                 return workingCopyDiffPath;
             });
@@ -153,7 +154,7 @@ namespace AstralKeks.SourceControl.Core.Management
 
         private IEnumerable<WorkingCopy> GetWorkingCopies()
         {
-            var directories = Directory.GetDirectories(_fileSystemManager.SourceDirectory);
+            var directories = Directory.GetDirectories(Paths.SourceDirectory);
             return directories
                 .Where(d => _repositoryManager.GetRepositoryClient(d) != null)
                 .Select(d => GetWorkingCopy(null, d));
@@ -164,7 +165,7 @@ namespace AstralKeks.SourceControl.Core.Management
             if (string.IsNullOrWhiteSpace(workingCopyName))
                 workingCopyName = Path.GetFileName(workingCopyPath);
             if (string.IsNullOrWhiteSpace(workingCopyPath))
-                workingCopyPath = _fileSystemManager.WorkingCopyPath(workingCopyName);
+                workingCopyPath = FsPath.Absolute(Paths.SourceDirectory, workingCopyName);
 
             return new WorkingCopy(workingCopyName, workingCopyPath);
         }

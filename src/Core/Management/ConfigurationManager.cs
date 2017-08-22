@@ -9,12 +9,10 @@ namespace AstralKeks.SourceControl.Core.Management
 {
     public class ConfigurationManager
     {
-        private readonly FileSystemManager _fileSystemManager;
         private readonly ResourceManager _resourceManager;
 
-        public ConfigurationManager(FileSystemManager fileSystemManager, ResourceManager resourceManager)
+        public ConfigurationManager(ResourceManager resourceManager)
         {
-            _fileSystemManager = fileSystemManager ?? throw new ArgumentNullException(nameof(fileSystemManager));
             _resourceManager = resourceManager ?? throw new ArgumentNullException(nameof(resourceManager));
         }
 
@@ -51,7 +49,7 @@ namespace AstralKeks.SourceControl.Core.Management
         
         private Resource GetConfigResource(string fileName)
         {
-            var locations = new[] { Location.Workspace(), Location.Userspace() };
+            var locations = new[] { Paths.WorkspaceDirectory, Paths.UserspaceDirectory };
             return _resourceManager.CreateResource(locations, Directories.Config, fileName);
         }
 
