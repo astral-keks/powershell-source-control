@@ -1,3 +1,9 @@
+## 0.2.0
+### Added
+- PSDrive mounted for each working copy
+### Changed
+- Update for Workbench.Common package
+
 ## 0.1.3
 ### Fixed
 - Proper paths management

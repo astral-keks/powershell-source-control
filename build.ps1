@@ -1,16 +1,18 @@
-$version = "0.1.3"
+$version = "0.2.0"
 
 $src = "$PSScriptRoot\src"
-$package = "$PSScriptRoot\package"
-$artifact = "$PSScriptRoot\artifact\AstralKeks.SourceControl"
+$artifact = "$PSScriptRoot\artifact"
 
-$manifest = "$artifact\AstralKeks.SourceControl.psd1"
+$bin = "$artifact\bin"
+
+$module = "$bin\SourceControl" 
+
+$manifest = "$module\SourceControl.psd1"
 
 # Build binaries
 if (Test-Path $artifact) { Remove-Item $artifact -Recurse }
-if (Test-Path $package) { Remove-Item $package -Recurse }
 dotnet restore $src\Command\SourceControl.Command.csproj
-dotnet build $src\Command\SourceControl.Command.csproj --configuration Release -o $artifact --version-suffix $version
+dotnet build $src\Command\SourceControl.Command.csproj --configuration Release -o $module --version-suffix $version
 
 # Fix manifest version
-(Get-Content $manifest).replace("ModuleVersion = '0.0.1'", "ModuleVersion = '$version'") | Set-Content $manifest
+(Get-Content $manifest).replace("ModuleVersion = '0.0.0'", "ModuleVersion = '$version'") | Set-Content $manifest

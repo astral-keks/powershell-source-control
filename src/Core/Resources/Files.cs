@@ -1,9 +1,11 @@
-﻿namespace AstralKeks.SourceControl.Core.Resources
+﻿using System;
+
+namespace AstralKeks.SourceControl.Resources
 {
     internal class Files
     {
-        public const string Repository = "SC-Repository.json";
-        public const string Shortcut = "SC-Shortcut.json";
-        public const string Index = ".scindex.json";
+        public const string RepositoryJson = "Repository.json";
+
+        public static string DiffPatch() => $"{DateTime.UtcNow.ToString("yy-MM-dd-HH-mm-ss-ffff")}.patch";
     }
 }

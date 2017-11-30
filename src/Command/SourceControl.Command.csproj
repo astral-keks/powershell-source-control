@@ -14,14 +14,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ContentWithTargetPath Include="Manifest.psd1">
+    <ContentWithTargetPath Include="Loader.psm1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <TargetPath>AstralKeks.SourceControl.psd1</TargetPath>
+      <TargetPath>SourceControl.psm1</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AstralKeks.PowerShell.Common" Version="0.1.0" />
+    <ContentWithTargetPath Include="Manifest.psd1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>SourceControl.psd1</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AstralKeks.PowerShell.Common" Version="0.2.0" />
     <PackageReference Include="System.Management.Automation.dll" Version="10.0.10586" />
   </ItemGroup>
 

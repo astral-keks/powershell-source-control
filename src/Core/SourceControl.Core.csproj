@@ -3,21 +3,21 @@
   <PropertyGroup>
     <TargetFramework>net462</TargetFramework>
     <AssemblyName>AstralKeks.SourceControl.Core</AssemblyName>
-    <RootNamespace>AstralKeks.SourceControl.Core</RootNamespace>
+    <RootNamespace>AstralKeks.SourceControl</RootNamespace>
     <Version>$(VersionSuffix)</Version>
     <AssemblyVersion>$(VersionSuffix)</AssemblyVersion>
     <FileVersion>$(VersionSuffix)</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Windows\SC-Repository.json" />
-    <EmbeddedResource Include="Resources\Windows\SC-Shortcut.json" />
+    <EmbeddedResource Include="Resources\Windows\Repository.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AstralKeks.Workbench.Common" Version="0.2.1" />
+    <PackageReference Include="AstralKeks.Workbench.Common" Version="0.5.1" />
+    <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="System.ValueTuple" Version="4.3.1" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,15 +1,14 @@
 ﻿
-namespace AstralKeks.SourceControl.Core.Resources
+namespace AstralKeks.SourceControl.Resources
 {
     internal class Directories
     {
-        public const string SourceControl = ".SourceControl";
+        public const string SourceControl = "SourceControl";
             
         public const string Config = "Config";
-        public static string Source = "Source";
-        public static string Temp = "Temp";
+        public const string Source = "Source";
+        public const string Temp = "Temp";
 
-        public static string Diff = "SCDiff";
-        public static string Index = "SCIndex";
+        public const string Diff = "Diff";
     }
 }
