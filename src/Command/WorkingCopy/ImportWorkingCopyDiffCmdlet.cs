@@ -9,9 +9,9 @@ namespace AstralKeks.SourceControl.Command.WorkingCopy
         [Parameter(Position = 1, ValueFromPipeline = true)]
         public string WorkingCopyDiffPath { get; set; }
 
-        protected override void ProcessRecord()
+        protected override void ProcessPath(string path)
         {
-            Components.WorkingCopyController.ImportWorkingCopyDiff(Query, WorkingCopyDiffPath);
+            Components.WorkingCopyController.ImportWorkingCopyDiff(path, WorkingCopyDiffPath);
         }
     }
 }

@@ -30,7 +30,7 @@ Author = 'Astral Keks'
 Copyright = '(c) 2017 Astral Keks. All rights reserved.'
 
 # Description of the functionality provided by this module
-# Description = ''
+Description = 'Source Control for PowerShell (Alpha)'
 
 # Minimum version of the Windows PowerShell engine required by this module
 # PowerShellVersion = ''

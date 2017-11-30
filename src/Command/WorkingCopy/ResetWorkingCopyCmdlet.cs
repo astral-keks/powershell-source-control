@@ -6,9 +6,9 @@ namespace AstralKeks.SourceControl.Command.WorkingCopy
     [Cmdlet(VerbsCommon.Reset, Noun.SCWorkingCopy)]
     public class ResetWorkingCopyCmdlet : WorkingCopyCmdlet
     {
-        protected override void ProcessRecord()
+        protected override void ProcessPath(string path)
         {
-            Components.WorkingCopyController.ResetWorkingCopy(Query);
+            Components.WorkingCopyController.ResetWorkingCopy(path);
         }
     }
 }

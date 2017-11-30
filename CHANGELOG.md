@@ -1,3 +1,9 @@
+## 0.2.1
+### Added
+- Initial empty repository configuration bootstrapping
+### Changed
+- NuGet dependencies update
+
 ## 0.2.0
 ### Added
 - PSDrive mounted for each working copy

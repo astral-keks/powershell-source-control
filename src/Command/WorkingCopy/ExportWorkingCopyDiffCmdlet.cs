@@ -7,9 +7,9 @@ namespace AstralKeks.SourceControl.Command.WorkingCopy
     [OutputType(typeof(string))]
     public class ExportWorkingCopyDiffCmdlet : WorkingCopyCmdlet
     {
-        protected override void ProcessRecord()
+        protected override void ProcessPath(string path)
         {
-            var diffPaths = Components.WorkingCopyController.ExportWorkingCopyDiff(Query);
+            var diffPaths = Components.WorkingCopyController.ExportWorkingCopyDiff(path);
             WriteObject(diffPaths, true);
         }
     }

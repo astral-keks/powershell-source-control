@@ -16,6 +16,7 @@ namespace AstralKeks.SourceControl
             builder.RegisterModule(new ContextBootstrapper());
             builder.RegisterModule(new ManagerBootstrapper());
             builder.RegisterModule(new ControllerBootstrapper());
+            builder.RegisterType<ResourceBootstrapper>().As<IStartable>();
             _container = builder.Build();
         }
 

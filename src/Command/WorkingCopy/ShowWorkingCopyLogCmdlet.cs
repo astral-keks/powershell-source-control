@@ -6,9 +6,9 @@ namespace AstralKeks.SourceControl.Command.WorkingCopy
     [Cmdlet(VerbsCommon.Show, Noun.SCWorkingCopyLog)]
     public class ShowWorkingCopyLogCmdlet : WorkingCopyCmdlet
     {
-        protected override void ProcessRecord()
+        protected override void ProcessPath(string path)
         {
-            Components.WorkingCopyController.ShowWorkingCopyLog(Query);
+            Components.WorkingCopyController.ShowWorkingCopyLog(path);
         }
     }
 }

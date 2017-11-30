@@ -6,9 +6,9 @@ namespace AstralKeks.SourceControl.Command.WorkingCopy
     [Cmdlet(VerbsCommon.Add, Noun.SCWorkingCopyItem)]
     public class AddWorkingItemCmdlet : WorkingCopyCmdlet
     {
-        protected override void ProcessRecord()
+        protected override void ProcessPath(string path)
         {
-            Components.WorkingCopyController.AddWorkingCopyEntry(Query);
+            Components.WorkingCopyController.AddWorkingCopyEntry(path);
         }
     }
 }
