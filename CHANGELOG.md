@@ -1,4 +1,8 @@
-## 0.2.1
+## 0.2.3
+### Added
+- Minor fix
+
+## 0.2.1, 0.2.2
 ### Added
 - Initial empty repository configuration bootstrapping
 ### Changed
