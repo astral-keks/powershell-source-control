@@ -1,3 +1,7 @@
+## 0.2.5
+### Fixed
+- Passing no query to cmdlets related to working copy doesn't work
+
 ## 0.2.4
 ### Changed
 - NuGet dependencies update

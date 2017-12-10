@@ -11,15 +11,17 @@ namespace AstralKeks.SourceControl.Command.WorkingCopy
     {
         [Parameter(Position = 0, ValueFromPipeline = true)]
         [ArgumentCompleter(typeof(ParameterCompleter))]
-        public string Query { get; set; }
+        public string[] Query { get; set; }
 
-        protected string ResolvedQuery => !string.IsNullOrWhiteSpace(Query) ? Query : ".";
-
-        protected PathInfo[] ResolvedPaths => SessionState.Path.GetResolvedPSPathFromPSPath(ResolvedQuery).ToArray();
+        protected string[] ResolvedQuery => Query?.Any() != true 
+            ? Components.WorkingCopyManager.GetWorkingCopies().Select(wc => wc.RootPath).ToArray()
+            : Query;
 
         protected override void ProcessRecord()
         {
-            var resolvedPaths = SessionState.Path.GetResolvedProviderPathFromPSPath(ResolvedQuery, out ProviderInfo provider);
+            var resolvedPaths = ResolvedQuery
+                .SelectMany(q => SessionState.Path.GetResolvedProviderPathFromPSPath(q, out ProviderInfo provider))
+                .ToArray();
             foreach (var resolvedPath in resolvedPaths)
             {
                 ProcessPath(resolvedPath);
