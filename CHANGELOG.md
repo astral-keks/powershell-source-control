@@ -1,3 +1,7 @@
+## 0.2.4
+### Changed
+- NuGet dependencies update
+
 ## 0.2.3
 ### Added
 - Minor fix

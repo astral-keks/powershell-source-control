@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AstralKeks.Workbench.Common" Version="0.5.3" />
+    <PackageReference Include="AstralKeks.Workbench.Common" Version="0.5.4" />
     <PackageReference Include="Autofac" Version="4.6.2" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="System.ValueTuple" Version="4.4.0" />
