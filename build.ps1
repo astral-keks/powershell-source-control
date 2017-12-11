@@ -1,4 +1,4 @@
-$version = "0.2.5"
+$version = "0.2.6"
 
 $src = "$PSScriptRoot\src"
 $artifact = "$PSScriptRoot\artifact"

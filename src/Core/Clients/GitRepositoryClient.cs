@@ -27,6 +27,7 @@ namespace AstralKeks.SourceControl.Clients
             TortoiseGitProc("clone", new Dictionary<string, string>
             {
                 { "path", directory },
+                { "exactpath", null },
                 { "url", uri.ToString() }
             });
         }
@@ -103,7 +104,7 @@ namespace AstralKeks.SourceControl.Clients
         private void TortoiseGitProc(string command, Dictionary<string, string> arguments = null, bool waitForExit = false)
         {
             arguments = arguments ?? new Dictionary<string, string>();
-            var argumentsString = $"/command:{command} {string.Join(" ", arguments.Select(kv => $"/{kv.Key}:{kv.Value}"))}";
+            var argumentsString = $"/command:{command} {string.Join(" ", arguments.Select(kv => kv.Value != null ? $"/{kv.Key}:{kv.Value}" : $"/{kv.Key}"))}";
             var processStartInfo = new ProcessStartInfo("TortoiseGitProc.exe", argumentsString);
             ProcessLauncher.Launch(processStartInfo, waitForExit);
         }

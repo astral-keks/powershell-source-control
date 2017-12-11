@@ -1,5 +1,6 @@
 ﻿using AstralKeks.PowerShell.Common.Attributes;
 using AstralKeks.PowerShell.Common.Parameters;
+using AstralKeks.PowerShell.Common.Extensions;
 using AstralKeks.SourceControl.Command.Common;
 using System;
 using System.Linq;
@@ -11,16 +12,16 @@ namespace AstralKeks.SourceControl.Command.WorkingCopy
     {
         [Parameter(Position = 0, ValueFromPipeline = true)]
         [ArgumentCompleter(typeof(ParameterCompleter))]
-        public string[] Query { get; set; }
+        public string Query { get; set; }
 
-        protected string[] ResolvedQuery => Query?.Any() != true 
+        protected string[] ResolvedQuery => string.IsNullOrWhiteSpace(Query)
             ? Components.WorkingCopyManager.GetWorkingCopies().Select(wc => wc.RootPath).ToArray()
-            : Query;
+            : new[] { Query };
 
         protected override void ProcessRecord()
         {
             var resolvedPaths = ResolvedQuery
-                .SelectMany(q => SessionState.Path.GetResolvedProviderPathFromPSPath(q, out ProviderInfo provider))
+                .SelectMany(SessionState.Path.GetResolvedProviderPathFromPSPath)
                 .ToArray();
             foreach (var resolvedPath in resolvedPaths)
             {

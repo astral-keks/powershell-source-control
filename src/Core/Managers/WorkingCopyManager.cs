@@ -32,7 +32,7 @@ namespace AstralKeks.SourceControl.Managers
 
             var repository = _repositoryManager.GetRepositories(repositoryName).First();
 
-            var workingCopy = GetWorkingCopy(workingCopyName, null);
+            var workingCopy = DefineWorkingCopy(workingCopyName, null);
             var client = _repositoryManager.GetRepositoryClient(repository.Vcs);
             client.CreateWorkingCopy(workingCopy.OriginPath, repository.Uri);
             return workingCopy;
@@ -51,7 +51,7 @@ namespace AstralKeks.SourceControl.Managers
             if (string.IsNullOrWhiteSpace(workingCopyName))
                 throw new ArgumentException("Working copy name is invalid");
 
-            var workingCopy = GetWorkingCopy(workingCopyName, null);
+            var workingCopy = DefineWorkingCopy(workingCopyName, null);
             if (workingCopy == null)
                 throw new DirectoryNotFoundException($"Working copy {workingCopyName} was not found");
 
@@ -65,10 +65,10 @@ namespace AstralKeks.SourceControl.Managers
             return entries
                 .Where(e => _fileSystem.DirectoryExists(e))
                 .Where(d => _repositoryManager.GetRepositoryClient(d) != null)
-                .Select(d => GetWorkingCopy(null, d));
+                .Select(d => DefineWorkingCopy(null, d));
         }
 
-        private WorkingCopy GetWorkingCopy(string workingCopyName, string workingCopyPath)
+        private WorkingCopy DefineWorkingCopy(string workingCopyName, string workingCopyPath)
         {
             WorkingCopy workingCopy = null;
 

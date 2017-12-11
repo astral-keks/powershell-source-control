@@ -1,3 +1,13 @@
+## 0.2.6
+### Added
+- #2 Tab completion: support completion by middle part
+### Changed
+- NuGet dependencies update
+### Fixed
+- Incorrect working copy resolution
+- #1 TortoiseGit, New-SCWorkingCopy: Incorrect directory path
+- Incorrect diff export path
+
 ## 0.2.5
 ### Fixed
 - Passing no query to cmdlets related to working copy doesn't work

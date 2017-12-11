@@ -96,12 +96,7 @@ namespace AstralKeks.SourceControl.Controllers
         private List<WorkingCopy> ResolveWorkingCopies(string workingCopyPath)
         {
             workingCopyPath = _fileSystem.MakeAbsolute(workingCopyPath ?? ".");
-
-            var workingCopies = _workingCopyManager.GetWorkingCopies(wc => workingCopyPath.StartsWith(wc.OriginPath));
-            if (!workingCopies.Any())
-                workingCopies = _workingCopyManager.GetWorkingCopies(wc => wc.OriginPath.StartsWith(workingCopyPath));
-
-            return workingCopies;
+            return _workingCopyManager.GetWorkingCopies(wc => wc.OriginPath.Equals(workingCopyPath, StringComparison.OrdinalIgnoreCase));
         }
 
         private RepositoryClient ResolveRepositoryClient(WorkingCopy workingCopy)
@@ -118,7 +113,7 @@ namespace AstralKeks.SourceControl.Controllers
             var sourceDirectoryRoot = _sharedContext.CurrentWorkspaceDirectory;
             if (string.IsNullOrWhiteSpace(sourceDirectoryRoot))
                 sourceDirectoryRoot = _sharedContext.CurrentUserspaceDirectory;
-            return PathBuilder.Combine(sourceDirectoryRoot, Directories.SourceControl, Directories.Diff);
+            return PathBuilder.Combine(sourceDirectoryRoot, Directories.Temp, Directories.SourceControl, Directories.Diff);
         }
     }
 }
