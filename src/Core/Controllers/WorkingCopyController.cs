@@ -8,6 +8,7 @@ using AstralKeks.Workbench.Common.Context;
 using AstralKeks.Workbench.Common.Infrastructure;
 using System.Linq;
 using AstralKeks.SourceControl.Models;
+using System.IO;
 
 namespace AstralKeks.SourceControl.Controllers
 {
@@ -96,7 +97,10 @@ namespace AstralKeks.SourceControl.Controllers
         private List<WorkingCopy> ResolveWorkingCopies(string workingCopyPath)
         {
             workingCopyPath = _fileSystem.MakeAbsolute(workingCopyPath ?? ".");
-            return _workingCopyManager.GetWorkingCopies(wc => wc.OriginPath.Equals(workingCopyPath, StringComparison.OrdinalIgnoreCase));
+            Func<string, string> transformPath = path => $"{path}{Path.DirectorySeparatorChar}";
+            return _workingCopyManager.GetWorkingCopies()
+                .Where(wc => transformPath(workingCopyPath).StartsWith(transformPath(wc.OriginPath)))
+                .ToList();
         }
 
         private RepositoryClient ResolveRepositoryClient(WorkingCopy workingCopy)

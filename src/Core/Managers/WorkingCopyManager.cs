@@ -37,15 +37,7 @@ namespace AstralKeks.SourceControl.Managers
             client.CreateWorkingCopy(workingCopy.OriginPath, repository.Uri);
             return workingCopy;
         }
-
-        public List<WorkingCopy> GetWorkingCopies(Func<WorkingCopy, bool> predicate = null)
-        {
-            var workingCopies = GetWorkingCopies();
-            if (predicate != null)
-                workingCopies = workingCopies.Where(predicate);
-            return workingCopies.ToList();
-        }
-
+        
         public WorkingCopy GetWorkingCopy(string workingCopyName)
         {
             if (string.IsNullOrWhiteSpace(workingCopyName))
@@ -58,7 +50,7 @@ namespace AstralKeks.SourceControl.Managers
             return workingCopy;
         }
         
-        private IEnumerable<WorkingCopy> GetWorkingCopies()
+        public IEnumerable<WorkingCopy> GetWorkingCopies()
         {
             var sourceDirectory = ResolveSourceDirectory();
             var entries = _fileSystem.DirectoryList(sourceDirectory);

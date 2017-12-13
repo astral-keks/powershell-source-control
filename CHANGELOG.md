@@ -1,3 +1,7 @@
+## 0.2.7
+### Fixed
+ - #5 Using native paths as query does not work
+
 ## 0.2.6
 ### Added
 - #2 Tab completion: support completion by middle part
