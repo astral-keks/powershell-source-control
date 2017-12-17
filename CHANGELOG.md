@@ -1,6 +1,10 @@
+## 0.2.8
+### Changed
+- NuGet dependencies update
+
 ## 0.2.7
 ### Fixed
- - #5 Using native paths as query does not work
+- #5 Using native paths as query does not work
 
 ## 0.2.6
 ### Added
